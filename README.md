@@ -17,7 +17,7 @@ JS Back End Workshop @SoftUni
    * Add static resources
    * Configure static middleware
    * Add body parser
-   * Add moduler routers
+   * Add modular routers
 3. Setup handlebars
    * Install handlebars `npm i express-handlebars`
    * Add view engine
