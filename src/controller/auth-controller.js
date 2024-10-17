@@ -20,4 +20,12 @@ authController.post('/register', async (req, res) => {
     }
 });
 
+authController.get('/login', (req, res) => {
+    res.render('auth/login', { title: 'Second Hand Electronics - Login' });
+});
+
+authController.post('/login', (req, res) => {
+    
+});
+
 export default authController;
