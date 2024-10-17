@@ -16,6 +16,9 @@ const electronicsService = {
     },
     remove(deviceId) {
         return Electronics.findByIdAndDelete(deviceId);
+    },
+    edit(deviceId, data) {
+        return Electronics.findByIdAndUpdate(deviceId, data, { runValidators: true });
     }
 }
 

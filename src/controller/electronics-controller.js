@@ -63,6 +63,27 @@ electronicsController.get('/:deviceId/delete', async (req, res) => {
     }
 });
 
+electronicsController.get('/:deviceId/edit', async (req, res) => {
+    const device = await electronicsService.getOne(req.params.deviceId).lean();
+
+    res.render('electronics/edit', { title: 'Second Hand Electronics - Edit', device });
+});
+
+electronicsController.post('/:deviceId/edit', async (req, res) => {
+    const deviceId = req.params.deviceId;
+    const data = req.body;
+
+    try {
+        await electronicsService.edit(deviceId, data);
+
+        res.redirect(`/electronics/${deviceId}/details`);
+    } catch (err) {
+        const error = getErrorMessage(err);
+
+        res.render('electronics/edit', { title: 'Second Hand Electronics - Edit', device: data, error });
+    }
+});
+
 async function isDeviceOwner(deviceId, userId) {
     const device = await electronicsService.getOne(deviceId);
     const isOwner = device.owner.toString() === userId;
