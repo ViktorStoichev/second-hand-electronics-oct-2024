@@ -1,14 +1,14 @@
 import { jwt } from "../lib/jwt.js";
 
 export const authMiddleware = async (req, res, next) => {
-    const token = res.cookies[AUTH_COOKIE_NAME];
+    const token = req.cookies[process.env.AUTH_COOKIE_NAME];
 
     if (!token) {
-        next();
+        return next();
     }
 
     try {
-        const decodedToken = await jwt.verify(token);
+        const decodedToken = await jwt.verify(token, process.env.JWT_SECRET);
 
         req.user = decodedToken;
         req.isAuthenticated = true;
@@ -18,7 +18,7 @@ export const authMiddleware = async (req, res, next) => {
 
         next();
     } catch (err) {
-        res.clearCookie(AUTH_COOKIE_NAME);
+        res.clearCookie(process.env.AUTH_COOKIE_NAME);
 
         res.redirect('/auth/login');
     }

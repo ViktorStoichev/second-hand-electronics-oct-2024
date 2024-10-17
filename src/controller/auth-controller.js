@@ -19,6 +19,8 @@ authController.post('/register', async (req, res) => {
         res.redirect('/');
     } catch (err) {
         const error = getErrorMessage(err);
+        console.log(err);
+
         res.render('auth/register', { title: 'Second Hand Electronics - Register', email, username, error });
     }
 });
