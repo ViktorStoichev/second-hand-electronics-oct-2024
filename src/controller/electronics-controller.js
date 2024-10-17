@@ -23,8 +23,10 @@ electronicsController.post('/create', async (req, res) => {
     }
 });
 
-electronicsController.get('/', (req, res) => {
-    res.render('electronics/catalog', { title: 'Second Hand Electronics - Catalog' });
+electronicsController.get('/', async (req, res) => {
+    const electronics = await electronicsService.getAll().lean();
+
+    res.render('electronics/catalog', { title: 'Second Hand Electronics - Catalog', electronics });
 });
 
 export default electronicsController;

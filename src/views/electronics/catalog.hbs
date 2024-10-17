@@ -2,28 +2,21 @@
     <!--If there are one or more electronics-->
     <div class="added-electronics">
 
-        <a href="#" class="added-electronics-in-market">
-            <img src="./image/laptop.webp" class="picture-added-electronics">
-            <h3>Laptop HP EliteBook 820 G4</h3>
-            <span>Price: $153</span>
+        {{#if electronics}}
+        {{#each electronics}}
+        <a href="/electronics/{{_id}}/details" class="added-electronics-in-market">
+            <img src="{{image}}" class="picture-added-electronics">
+            <h3>{{name}}</h3>
+            <span>Price: ${{price}}</span>
         </a>
-
-        <a href="#" class="added-electronics-in-market">
-            <img src="./image/tablet.webp" class="picture-added-electronics">
-            <h3>Tablet Apple iPad Air 16GB</h3>
-            <span>Price: $92</span>
-        </a>
-
-        <a href="#" class="added-electronics-in-market">
-            <img src="./image/smartphone.webp" class="picture-added-electronics">
-            <h3>Samsung Galaxy S21 5G 128GB</h3>
-            <span>Price: $347</span>
-        </a>
+        {{/each}}
+        {{else}}
+        <div class="guest">
+            There are no electronics found...
+        </div>
+        {{/if}}
 
     </div>
 
     <!--If there are no electronics in catalog yet-->
-    <!-- <div class="guest">
-                There are no electronics found...
-            </div> -->
 </section>
