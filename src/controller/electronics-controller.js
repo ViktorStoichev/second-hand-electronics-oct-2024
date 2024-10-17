@@ -38,6 +38,19 @@ electronicsController.get('/:deviceId/details', async (req, res) => {
     res.render('electronics/details', { title: 'Second Hand Electronics - Details', device, isOwner, isBought });
 });
 
+electronicsController.get('/:deviceId/buy', async (req, res) => {
+    const deviceId = req.params.deviceId;
+    const userId = req.user?._id;
+
+    try {
+        await electronicsService.buy(deviceId, userId);
+
+        res.redirect(`/electronics/${deviceId}/details`);
+    } catch (err) {
+        console.log(err);
+    }
+});
+
 async function isDeviceOwner(deviceId, userId) {
     const device = await electronicsService.getOne(deviceId);
     const isOwner = device.owner.toString() === userId;

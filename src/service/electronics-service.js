@@ -10,6 +10,9 @@ const electronicsService = {
     },
     getOne(deviceId) {
         return Electronics.findById(deviceId);
+    },
+    buy(deviceId, userId) {
+        return Electronics.findByIdAndUpdate(deviceId, { $push: { buyingList: userId } });
     }
 }
 
