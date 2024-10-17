@@ -29,4 +29,20 @@ electronicsController.get('/', async (req, res) => {
     res.render('electronics/catalog', { title: 'Second Hand Electronics - Catalog', electronics });
 });
 
+electronicsController.get('/:deviceId/details', async (req, res) => {
+    const deviceId = req.params.deviceId;
+    const device = await electronicsService.getOne(deviceId).lean();
+    const isOwner = await isDeviceOwner(deviceId, req.user?._id);
+    const isBought = device.buyingList?.some(userId => userId == req.user?._id);
+
+    res.render('electronics/details', { title: 'Second Hand Electronics - Details', device, isOwner, isBought });
+});
+
+async function isDeviceOwner(deviceId, userId) {
+    const device = await electronicsService.getOne(deviceId);
+    const isOwner = device.owner.toString() === userId;
+
+    return isOwner;
+}
+
 export default electronicsController;

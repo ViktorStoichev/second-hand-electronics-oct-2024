@@ -7,6 +7,9 @@ const electronicsService = {
     },
     getAll() {
         return Electronics.find();
+    },
+    getOne(deviceId) {
+        return Electronics.findById(deviceId);
     }
 }
 
