@@ -51,6 +51,18 @@ electronicsController.get('/:deviceId/buy', async (req, res) => {
     }
 });
 
+electronicsController.get('/:deviceId/delete', async (req, res) => {
+    const deviceId = req.params.deviceId;
+
+    try {
+        await electronicsService.remove(deviceId);
+
+        res.redirect('/electronics');
+    } catch (err) {
+        console.log(err);
+    }
+});
+
 async function isDeviceOwner(deviceId, userId) {
     const device = await electronicsService.getOne(deviceId);
     const isOwner = device.owner.toString() === userId;

@@ -13,6 +13,9 @@ const electronicsService = {
     },
     buy(deviceId, userId) {
         return Electronics.findByIdAndUpdate(deviceId, { $push: { buyingList: userId } });
+    },
+    remove(deviceId) {
+        return Electronics.findByIdAndDelete(deviceId);
     }
 }
 
